@@ -43,6 +43,13 @@ Given /^the blog is set up$/ do
                 :state => 'active'})
 end
 
+And /^the following user records exist$/ do |table|
+  #table.map_column!('profile') { |a| a.to_i }
+  table.hashes.each do |hash|
+    Factory(:user, hash)
+  end
+end
+
 And /^I am logged into the admin panel$/ do
   visit '/accounts/login'
   fill_in 'user_login', :with => 'admin'
