@@ -43,10 +43,10 @@ Given /^the blog is set up$/ do
                 :state => 'active'})
 end
 
-And /^the following user records exist$/ do |table|
-  #table.map_column!('profile') { |a| a.to_i }
+And /^the following (.+) records exist$/ do |factory, table|
+  table.map_column!('profile') { |profile| eval profile }
   table.hashes.each do |hash|
-    Factory(:user, hash)
+    Factory(factory, hash)
   end
 end
 
