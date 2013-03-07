@@ -43,6 +43,7 @@ class AccountsController < ApplicationController
         @login = params[:user][:login]
       end
     end
+    debugger
   end
 
   def signup
