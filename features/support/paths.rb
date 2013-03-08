@@ -18,6 +18,11 @@ module NavigationHelpers
     when /^the new article page$/
       '/admin/content/new'
 
+    when /^the (.+) page of article with id (\d+)$/
+      "/admin/content/#{$1}/#{$2}"
+
+
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
