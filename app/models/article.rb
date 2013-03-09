@@ -122,6 +122,9 @@ class Article < Content
 
   end
 
+  def merge_with(other_article_id) #instance method for merging articles
+  end
+
   def year_url
     published_at.year.to_s
   end

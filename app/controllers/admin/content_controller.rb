@@ -37,6 +37,10 @@ class Admin::ContentController < Admin::BaseController
     new_or_edit
   end
 
+  def merge_articles
+    redirect_to admin_content_path #temporary place holder
+  end
+
   def destroy
     @record = Article.find(params[:id])
 
@@ -240,4 +244,5 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
 end
