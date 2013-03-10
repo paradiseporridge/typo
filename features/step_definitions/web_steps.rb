@@ -44,7 +44,6 @@ Given /^the blog is set up$/ do
 end
 
 And /^I am logged into the admin panel$/ do
-  debugger
   visit '/accounts/login'
   fill_in 'user_login', :with => 'admin'
   fill_in 'user_password', :with => 'aaaaaaaa'

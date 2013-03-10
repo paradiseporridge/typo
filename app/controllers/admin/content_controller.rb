@@ -6,6 +6,10 @@ class Admin::ContentController < Admin::BaseController
 
   cache_sweeper :blog_sweeper
 
+  def is_admin?
+    current_user.profile.nicename == 'Typo administrator' ? true : false
+  end
+
   def auto_complete_for_article_keywords
     @items = Tag.find_with_char params[:article][:keywords].strip
     render :inline => "<%= raw auto_complete_result @items, 'name' %>"
@@ -29,7 +33,7 @@ class Admin::ContentController < Admin::BaseController
 
   def edit
     @article = Article.find(params[:id])
-    if current_user.profile.nicename == 'Typo administrator' then @admin = true end
+    @admin = true if is_admin?
     unless @article.access_by? current_user
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
@@ -39,7 +43,16 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def merge_articles
-    redirect_to admin_content_path #temporary place holder
+    article = Article.find(params[:id])
+    begin
+      another_article = Article.find(params[:merge_with])
+      article.merge_with(another_article.id)
+      redirect_to admin_content_path
+      flash[:notice] = _("Yey! Merge successful.")
+    rescue ActiveRecord::RecordNotFound
+      redirect_to :action => 'edit', :id => article.id
+      flash[:error] = _("Oops, article you want to add doesn't exist")
+    end
   end
 
   def destroy

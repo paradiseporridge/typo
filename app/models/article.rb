@@ -123,6 +123,11 @@ class Article < Content
   end
 
   def merge_with(other_article_id) #instance method for merging articles
+    other_article = Article.find(other_article_id)
+    self.body += other_article.body
+    self.comments << other_article.comments
+    self.save
+    other_article.destroy
   end
 
   def year_url
