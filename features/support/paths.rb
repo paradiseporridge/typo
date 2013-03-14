@@ -24,6 +24,9 @@ module NavigationHelpers
     when /^Manage articles page$/
       '/admin/content'
 
+    when /^the new category page$/
+      '/admin/categories/new'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
